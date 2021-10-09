@@ -2,8 +2,10 @@ package spring5guru.webappcolby.BootStrap;
 
 import spring5guru.webappcolby.Domain.Author;
 import spring5guru.webappcolby.Domain.Book;
+import spring5guru.webappcolby.Domain.Publisher;
 import spring5guru.webappcolby.Repositories.AuthorRepository;
 import spring5guru.webappcolby.Repositories.BookRepository;
+import spring5guru.webappcolby.Repositories.PublisherRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -12,10 +14,12 @@ public class BootStrapData implements CommandLineRunner {
 
         private final AuthorRepository authorRepository;
         private final BookRepository bookRepository;
+        private final PublisherRepository publisherRepository;
 
-    public BootStrapData(AuthorRepository authorRepository, BookRepository bookRepository) {
+    public BootStrapData(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
+        this.publisherRepository = publisherRepository;
     }
 
     @Override
@@ -37,8 +41,12 @@ public class BootStrapData implements CommandLineRunner {
         authorRepository.save(ray);
         bookRepository.save(fahrenheit);
 
+        Publisher hill = new Publisher("Hill Publishing", "123 Main St", "Austin", "TX", "78759");
+        publisherRepository.save(hill);
+        Long pubID = hill.getId();
+
         System.out.println("Started in spring5guru.webappcolby.BootStrap");
         System.out.println("Number of Books: " + bookRepository.count());
-
+        System.out.println("Publisher data: " + publisherRepository.findById(pubID).toString());
     }
 }
