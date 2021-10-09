@@ -45,8 +45,16 @@ public class BootStrapData implements CommandLineRunner {
         publisherRepository.save(hill);
         Long pubID = hill.getId();
 
+        fahrenheit.setPublisher(hill);
+        hill.getBooks().add(fahrenheit);
+        hitchhiker.setPublisher(hill);
+        hill.getBooks().add(hitchhiker);
+
+        publisherRepository.save(hill);
+
         System.out.println("Started in spring5guru.webappcolby.BootStrap");
         System.out.println("Number of Books: " + bookRepository.count());
         System.out.println("Publisher data: " + publisherRepository.findById(pubID).toString());
+        System.out.println("Number of Books from publisher: " + hill.getBooks().size());
     }
 }
